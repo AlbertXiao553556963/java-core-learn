@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+
 /**
  * @author: XiaoMingxuan
  * @email: mingxuan.xmx@alibaba-inc.com
@@ -21,8 +25,40 @@ public class TestCache12306 {
     @Autowired
     TicketService ticketService;
 
+    final Integer concurrenceSize = 1;
     @Test
     public void test01() {
         ticketService.queryTicketStock("G104");
+    }
+
+    @Test
+    public void test02() {
+        CountDownLatch countDownLatch = new CountDownLatch(concurrenceSize);
+
+        List<Thread> threads = new ArrayList<>();
+
+        for(int i = 0; i < concurrenceSize; i++) {
+            int finalI = i;
+            Thread t = new Thread(() -> {
+                try {
+                    log.info("thread {} is ready", String.valueOf(finalI));
+                    countDownLatch.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ticketService.queryTicketStock("G104");
+            });
+            threads.add(t);
+            t.start();
+            countDownLatch.countDown();
+        }
+
+        threads.forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

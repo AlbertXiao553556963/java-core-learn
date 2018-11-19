@@ -1,6 +1,7 @@
 package com.cache12306;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -18,10 +19,18 @@ public class TicketService {
     @Resource
     private DatabaseService databaseService;
 
-    public Integer queryTicketStock(final String ticketSeq) {
-        Integer stock;
-        stock = databaseService.queryFromDatabase(ticketSeq);
-        log.info("get {} stock:{} from db", ticketSeq, stock);
-        return stock;
+    @Resource(name = "mainRedis")
+    RedisTemplate mainRedis;
+
+    public void queryTicketStock(final String ticketSeq) {
+        Object stock = mainRedis.opsForValue().get(ticketSeq);
+        if(stock == null) {
+            stock = databaseService.queryFromDatabase(ticketSeq);
+            String value = stock.toString();
+            mainRedis.opsForValue().setIfAbsent(ticketSeq, value);
+            log.info("get {} stock:{} from db", ticketSeq, stock);
+        } else {
+            log.info("get {} stock:{} from redis", ticketSeq, stock);
+        }
     }
 }

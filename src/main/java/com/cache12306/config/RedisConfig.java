@@ -32,7 +32,7 @@ public class RedisConfig {
         return new LettuceConnectionFactory(mainRedisConfig);
     }
 
-    @Bean
+    @Bean(name = "mainRedis")
     public RedisTemplate<String,String> mainRedisTemplate(LettuceConnectionFactory lettuceConnectionFactory) {
         StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
         stringRedisTemplate.setConnectionFactory(lettuceConnectionFactory);
