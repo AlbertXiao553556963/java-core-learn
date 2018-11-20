@@ -25,10 +25,10 @@ public class TestCache12306 {
     @Autowired
     TicketService ticketService;
 
-    final Integer concurrenceSize = 1;
+    final Integer concurrenceSize = 1000;
     @Test
     public void test01() {
-        ticketService.queryTicketStock("G104");
+        ticketService.queryTicketStockRedis("G104");
     }
 
     @Test
@@ -36,7 +36,7 @@ public class TestCache12306 {
         CountDownLatch countDownLatch = new CountDownLatch(concurrenceSize);
 
         List<Thread> threads = new ArrayList<>();
-
+        long start = System.currentTimeMillis();
         for(int i = 0; i < concurrenceSize; i++) {
             int finalI = i;
             Thread t = new Thread(() -> {
@@ -46,7 +46,7 @@ public class TestCache12306 {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                ticketService.queryTicketStock("G104");
+                ticketService.queryTicketStockRedis("G104");
             });
             threads.add(t);
             t.start();
@@ -60,5 +60,6 @@ public class TestCache12306 {
                 e.printStackTrace();
             }
         });
+        System.out.println("total time:" + (System.currentTimeMillis() - start) );
     }
 }

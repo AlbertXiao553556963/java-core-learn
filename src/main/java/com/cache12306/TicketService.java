@@ -5,6 +5,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.time.Duration;
 
 
 /**
@@ -22,15 +23,46 @@ public class TicketService {
     @Resource(name = "mainRedis")
     RedisTemplate mainRedis;
 
-    public void queryTicketStock(final String ticketSeq) {
+    public Object queryTicketStockRedis(final String ticketSeq) {
+
         Object stock = mainRedis.opsForValue().get(ticketSeq);
-        if(stock == null) {
+
+        if (stock == null) {
+
+            /**
+             * 加分布式锁，只允许一个查数据库
+             */
+            boolean lock = mainRedis.opsForValue().setIfAbsent(ticketSeq + "lock", "true", Duration.ofMillis(1000));
+
+            /**
+             * 没有获取到锁
+             */
+            while (!lock) {
+                stock = mainRedis.opsForValue().get(ticketSeq);
+                if (stock != null) {
+                    log.info("get {} stock:{} from redis", ticketSeq, stock);
+                    return stock;
+                }
+            }
+
+            /**
+             * 获取到锁
+             */
+            if((stock = mainRedis.opsForValue().get(ticketSeq)) != null) {
+                log.info("get {} stock:{} from redis", ticketSeq, stock);
+                return stock;
+            }
             stock = databaseService.queryFromDatabase(ticketSeq);
-            String value = stock.toString();
-            mainRedis.opsForValue().setIfAbsent(ticketSeq, value);
+            log.info("lock:{}", lock);
             log.info("get {} stock:{} from db", ticketSeq, stock);
+            mainRedis.opsForValue().set(ticketSeq, stock.toString());
+            mainRedis.delete(ticketSeq + "lock");
+            return stock;
+
         } else {
             log.info("get {} stock:{} from redis", ticketSeq, stock);
+            return stock;
         }
     }
+
 }
