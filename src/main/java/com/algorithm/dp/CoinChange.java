@@ -2,6 +2,8 @@ package com.algorithm.dp;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Scanner;
+
 /**
  * 动态规划-硬币找零
  */
@@ -21,7 +23,7 @@ public class CoinChange {
 					if(coinsUsed[i] == 0) {
 						coinsUsed[i]  =temp;
 					}
-					coinsUsed[i] = Integer.min(coinsUsed[i], temp);
+					coinsUsed[i] = Math.min(coinsUsed[i], temp);
 				}
 			}
 		}
@@ -31,10 +33,14 @@ public class CoinChange {
 	public static void main(String[] args) {  
 		// 硬币面值预先已经按降序排列  
 		int[] coinValue = new int[] { 50, 20, 11, 5, 2,1 };  
-		// 需要找零的面值  
-		int money = 123;
-		// 保存每一个面值找零所需的最小硬币数，0号单元舍弃不用，所以要多加1  
-		changeCoins(coinValue,  money);  
-	}  
+		// 需要找零的面值
+		while (true) {
+			System.out.println("请输入需要找零的面值:");
+			Scanner in = new Scanner(System.in);
+			int money = Integer.valueOf(in.nextLine());
+			// 保存每一个面值找零所需的最小硬币数，0号单元舍弃不用，所以要多加1
+			changeCoins(coinValue,  money);
+		}
+	}
  
 }
