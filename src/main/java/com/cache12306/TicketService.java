@@ -1,6 +1,7 @@
 package com.cache12306;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -48,7 +49,7 @@ public class TicketService {
             /**
              * 双重校验，去查询缓存是否有值
              */
-            if((stock = mainRedis.opsForValue().get(ticketSeq)) != null) {
+            if ((stock = mainRedis.opsForValue().get(ticketSeq)) != null) {
                 log.info("get {} stock:{} from redis", ticketSeq, stock);
                 return stock;
             }
@@ -56,7 +57,12 @@ public class TicketService {
             stock = databaseService.queryFromDatabase(ticketSeq);
             log.info("lock:{}", lock);
             log.info("get {} stock:{} from db", ticketSeq, stock);
-            mainRedis.opsForValue().set(ticketSeq, stock.toString());
+            final String v = stock.toString();
+
+            // 设置缓存一定要加过期时间
+            mainRedis.execute((RedisCallback) redisConnection ->
+                    redisConnection.setEx(ticketSeq.getBytes(), 120, v.getBytes()));
+
             // 获取到锁后一定要删除锁
             mainRedis.delete(ticketSeq + "lock");
             return stock;
