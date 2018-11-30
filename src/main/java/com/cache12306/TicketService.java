@@ -60,8 +60,8 @@ public class TicketService {
             final String v = stock.toString();
 
             // 设置缓存一定要加过期时间
-            mainRedis.execute((RedisCallback) redisConnection ->
-                    redisConnection.setEx(ticketSeq.getBytes(), 120, v.getBytes()));
+            RedisCallback action= redisConnection -> redisConnection.setEx(ticketSeq.getBytes(), 120, v.getBytes());
+            mainRedis.execute(action);
 
             // 获取到锁后一定要删除锁
             mainRedis.delete(ticketSeq + "lock");
