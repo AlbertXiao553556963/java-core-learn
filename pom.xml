@@ -12,6 +12,7 @@
     <modules>
         <module>canal-learn</module>
         <module>wangyi-learn</module>
+        <module>stream-learn</module>
     </modules>
 
     <dependencies>
