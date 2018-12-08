@@ -1,4 +1,4 @@
-package com;
+package com.xmx.stream;
 
 import lombok.Data;
 
