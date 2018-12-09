@@ -5,9 +5,10 @@ spring:
 #    serialization: true
 #    deserialization: true
   datasource:
-      url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:test}?autoReconnect=true&useUnicode=true&characterEncoding=UTF8&useSSL=false&tcpKeepAlive=true&autoReconnect=true
-      username: ${MYSQL_USERNAME:root}
-      password: ${MYSQL_PASSWORD:spring}
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:test}?autoReconnect=true&useUnicode=true&characterEncoding=UTF8&useSSL=false&tcpKeepAlive=true&autoReconnect=true
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:spring}
   redis:
     main:
       host: 127.0.0.1
