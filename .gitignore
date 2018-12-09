@@ -1,0 +1,38 @@
+# maven ignore
+.gradle/
+build/
+target/
+bin/
+
+# eclipse ignore
+.settings/
+.project
+.classpath
+
+# idea ignore
+.idea/
+*.ipr
+*.iml
+*.iws
+rebel.xml
+rebel-remote.xml
+node_modules/
+
+# temp ignore
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp
+
+#vscode ignore
+*.factorypath
+
+# system ignore
+.DS_Store
+Thumbs.db
+*.sw?
+.#*
+*#
+*~
+*.sublime-*
