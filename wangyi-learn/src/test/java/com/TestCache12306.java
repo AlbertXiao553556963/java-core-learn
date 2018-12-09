@@ -26,6 +26,7 @@ public class TestCache12306 {
     TicketService ticketService;
 
     final Integer concurrenceSize = 1000;
+
     @Test
     public void test01() {
         ticketService.queryTicketStockRedis("G104");

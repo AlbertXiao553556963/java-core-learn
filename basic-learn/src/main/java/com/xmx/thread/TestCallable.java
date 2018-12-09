@@ -1,6 +1,5 @@
 package com.xmx.thread;
 
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -13,7 +12,7 @@ public class TestCallable {
 
     public static Long getUserId() {
         try {
-            Thread.sleep(150);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -22,7 +21,7 @@ public class TestCallable {
 
     public static Long getCompanyId() {
         try {
-            Thread.sleep(100);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -30,13 +29,15 @@ public class TestCallable {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-
+        Long start = null;
+        Long companyId = null;
+        Long userId = null;
         /**
          * 串行调度
          */
-        Long start = System.currentTimeMillis();
-        Long companyId = getCompanyId();
-        Long userId = getUserId();
+        start = System.currentTimeMillis();
+        companyId = getCompanyId();
+        userId = getUserId();
         System.out.println("串行耗时:" + (System.currentTimeMillis() - start));
         System.out.println(String.format("公司信息:%s,用户信息:%s", companyId, userId));
 
@@ -51,6 +52,19 @@ public class TestCallable {
         companyId = companyTask.get();
         userId = userTask.get();
         System.out.println("\n并行耗时:" + (System.currentTimeMillis() - start));
+        System.out.println(String.format("公司信息:%s,用户信息:%s \n", companyId, userId));
+
+        /**
+         * 自己实现的futureTask
+         */
+        MyFutureTask<Long> userMyTask = new MyFutureTask(() -> getUserId());
+        MyFutureTask<Long> companyMyTask = new MyFutureTask(() -> getCompanyId());
+        start = System.currentTimeMillis();
+        new Thread(userMyTask).start();
+        new Thread(companyMyTask).start();
+        companyId = companyMyTask.get();
+        userId = userMyTask.get();
+        System.out.println("并行耗时:" + (System.currentTimeMillis() - start));
         System.out.println(String.format("公司信息:%s,用户信息:%s", companyId, userId));
     }
 }
