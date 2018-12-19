@@ -10,9 +10,8 @@ spring:
     username: ${MYSQL_USERNAME:root}
     password: ${MYSQL_PASSWORD:spring}
   redis:
-    main:
-      host: 127.0.0.1
-      port: 6379
+    host: 11.5.218.253
+    port: 6379
 
 logging:
   file: ${user.home}/logs/java-core/test.log
