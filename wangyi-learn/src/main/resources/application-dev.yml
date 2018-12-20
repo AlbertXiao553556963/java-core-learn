@@ -1,17 +1,16 @@
 spring:
   application:
     name: java-core-code
-#  jackson:
-#    serialization: true
-#    deserialization: true
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:test}?autoReconnect=true&useUnicode=true&characterEncoding=UTF8&useSSL=false&tcpKeepAlive=true&autoReconnect=true
     username: ${MYSQL_USERNAME:root}
     password: ${MYSQL_PASSWORD:spring}
   redis:
-    host: 11.5.218.253
+    host: 127.0.0.1
     port: 6379
+    timeout: ${REDIS_TIMEOUT:10}
+    database: ${REDIS_DATABASE:1}
 
 logging:
   file: ${user.home}/logs/java-core/test.log

@@ -1,4 +1,4 @@
-package com.cache12306.config;
+package com.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -14,14 +14,15 @@ import org.springframework.data.redis.core.StringRedisTemplate;
  * @author: XiaoMingxuan
  * @email: mingxuan.xmx@alibaba-inc.com
  * @create: 2018-11-18 13:06
+ * 定义RedisTemplate
  **/
 @Configuration
 @Slf4j
-public class RedisConfig {
+public class RedisTemplateConfig {
 
     @Bean
     @Primary
-    @ConfigurationProperties(prefix = "spring.redis.main")
+    @ConfigurationProperties(prefix = "spring.redis")
     public RedisStandaloneConfiguration mainRedisConfig() {
         return new RedisStandaloneConfiguration();
     }

@@ -1,4 +1,4 @@
-package com.miaosha;
+package com.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;
@@ -18,10 +18,15 @@ import org.springframework.data.redis.core.RedisTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author: XiaoMingxuan
+ * @email: mingxuan.xmx@alibaba-inc.com
+ * @create: 2018-12-10 14:26
+ * 定义redission客户端，兼容spring.redis的模式
+ **/
 @SuppressWarnings("all")
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 @ConditionalOnClass({Redisson.class, RedisTemplate.class})
-//@ConditionalOnProperty(name = {"spring.redis.sentinel.master", "spring.redis.sentinel.nodes"})
 @Configuration
 @Slf4j
 public class RedissonAutoConfiguration {

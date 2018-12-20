@@ -21,6 +21,6 @@ public class OrderService {
         String orderCode = "PO123";
         log.info("1.订单创建成功:{}",orderCode);
         applicationContext.publishEvent(new OrderCreateEvent(orderCode));
-        log.info("3.短信发送成功:{}",orderCode);
+        log.info("2.短信发送成功:{}",orderCode);
     }
 }

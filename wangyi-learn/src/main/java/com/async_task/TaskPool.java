@@ -1,4 +1,4 @@
-package com.ayync_task;
+package com.async_task;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
  * @author: XiaoMingxuan
  * @email: mingxuan.xmx@alibaba-inc.com
  * @create: 2018-12-10 14:31
+ * 定义异步执行的任务
  **/
 @Component
 @Slf4j

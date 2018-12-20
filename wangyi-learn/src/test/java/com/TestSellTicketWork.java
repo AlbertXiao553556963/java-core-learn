@@ -1,6 +1,6 @@
 package com;
 
-import com.miaosha.SellTicket;
+import com.miaosha.SellTicketWork;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,14 +15,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = Application.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 @Slf4j
-public class TestSellTicket {
+public class TestSellTicketWork {
 
     @Test
-    public void test() {
-        SellTicket.SellWindow sellWindow = new SellTicket.SellWindow();
-
+    public void test() throws InterruptedException {
+        SellTicketWork sellTicket = new SellTicketWork();
         for(int i = 0 ; i < 3; i++) {
-            new Thread(sellWindow,"窗口" + i).start();
+            new Thread(sellTicket,"窗口" + i).start();
         }
+        Thread.sleep(10000);
     }
 }

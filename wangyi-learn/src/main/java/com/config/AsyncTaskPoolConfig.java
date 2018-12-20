@@ -1,4 +1,4 @@
-package com;
+package com.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +12,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author: XiaoMingxuan
  * @email: mingxuan.xmx@alibaba-inc.com
  * @create: 2018-12-10 14:26
+ * 定义实行异步任务的线程池
  **/
 @EnableAsync
 @Configuration

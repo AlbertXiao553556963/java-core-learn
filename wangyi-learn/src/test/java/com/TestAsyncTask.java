@@ -1,6 +1,6 @@
 package com;
 
-import com.ayync_task.TaskPool;
+import com.async_task.TaskPool;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Slf4j
 public class TestAsyncTask {
+
     @Autowired
     TaskPool tasks;
 
