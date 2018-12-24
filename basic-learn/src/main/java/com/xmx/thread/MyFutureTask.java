@@ -6,7 +6,7 @@ import java.util.concurrent.Callable;
  * @author: XiaoMingxuan
  * @email: mingxuan.xmx@alibaba-inc.com
  * @create: 2018-12-08 12:41
- *
+ * 模拟FurtureTask实现
  **/
 public class MyFutureTask<T> implements Runnable {
 
