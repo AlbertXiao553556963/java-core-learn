@@ -1,4 +1,4 @@
-package topic1.thread;
+package topic1.concurrent;
 
 import sun.misc.Unsafe;
 
@@ -14,7 +14,7 @@ import java.util.concurrent.CountDownLatch;
 public class CasDemo {
 
 //    static volatile int value; // volatile只能保证读取的是内存中的最新的、写入后立刻刷回内存
-    int value;
+    static int value;
 
     static Unsafe unsafe;
 
@@ -31,9 +31,9 @@ public class CasDemo {
             e.printStackTrace();
         }
     }
+
     public static void main(String[] args) throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(2);
-
         for(int i = 0; i < 2; i++) {
             new Thread(() -> {
                 for(int j = 0; j < 10000; j++) {
