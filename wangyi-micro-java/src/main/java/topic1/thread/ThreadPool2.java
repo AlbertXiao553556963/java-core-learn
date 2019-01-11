@@ -1,4 +1,4 @@
-package topic1.threadpool;
+package topic1.thread;
 
 import java.text.SimpleDateFormat;
 import java.util.concurrent.*;
@@ -8,7 +8,7 @@ import java.util.concurrent.*;
  * @email: mingxuan.xmx@alibaba-inc.com
  * @create: 2018-12-28 22:37
  **/
-public class Demo01 {
+public class ThreadPool2 {
 
     public void testCommon(ThreadPoolExecutor threadPoolExecutor) throws InterruptedException {
         System.out.println("before任务调度-当前线程池中线程数量" + threadPoolExecutor.getPoolSize());
@@ -95,9 +95,9 @@ public class Demo01 {
     }
 
     public static void main(String[] args) throws Exception {
-//        new Demo01().threadPoolExecutorTest1();
-//        new Demo01().threadPoolExecutorTest2();
-//        new Demo01().threadPoolExecutorTest3();
-        new Demo01().threadPoolExecutorTest4();
+//        new ThreadPool2().threadPoolExecutorTest1();
+//        new ThreadPool2().threadPoolExecutorTest2();
+//        new ThreadPool2().threadPoolExecutorTest3();
+        new ThreadPool2().threadPoolExecutorTest4();
     }
 }

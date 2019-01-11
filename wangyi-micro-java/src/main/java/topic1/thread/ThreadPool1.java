@@ -1,4 +1,4 @@
-package topic1.threadpool;
+package topic1.thread;
 
 import java.util.List;
 import java.util.concurrent.*;
@@ -8,7 +8,7 @@ import java.util.concurrent.*;
  * @email: mingxuan.xmx@alibaba-inc.com
  * @create: 2018-12-28 22:28
  **/
-public class Demo {
+public class ThreadPool1 {
 
     /**
      * 测试： 提交15个执行时间需要3秒的任务,看线程池的状况
@@ -273,13 +273,13 @@ public class Demo {
     }
 
     public static void main(String[] args) throws Exception {
-//		new Demo().threadPoolExecutorTest1();
-//		new Demo().threadPoolExecutorTest2();
-//		new Demo().threadPoolExecutorTest3();
-//		new Demo().threadPoolExecutorTest4();
-//		new Demo().threadPoolExecutorTest5();
-//		new Demo().threadPoolExecutorTest6();
-//		new Demo().threadPoolExecutorTest7();
-        new Demo().threadPoolExecutorTest8();
+//		new ThreadPool1().threadPoolExecutorTest1();
+//		new ThreadPool1().threadPoolExecutorTest2();
+//		new ThreadPool1().threadPoolExecutorTest3();
+//		new ThreadPool1().threadPoolExecutorTest4();
+//		new ThreadPool1().threadPoolExecutorTest5();
+//		new ThreadPool1().threadPoolExecutorTest6();
+//		new ThreadPool1().threadPoolExecutorTest7();
+        new ThreadPool1().threadPoolExecutorTest8();
     }
 }
