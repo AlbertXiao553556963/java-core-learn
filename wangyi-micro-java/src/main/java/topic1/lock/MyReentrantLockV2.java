@@ -9,6 +9,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.LockSupport;
 
 /**
+ * 使用park机制和阻塞队列实现可重入锁
  * @author: XiaoMingxuan
  * @email: mingxuan.xmx@alibaba-inc.com
  * @create: 2019-01-11 18:44
@@ -17,7 +18,7 @@ public class MyReentrantLockV2 implements Lock {
 
     private AtomicReference<Thread> owner = new AtomicReference<>();
 
-    private LinkedBlockingQueue<Thread> waiters = new LinkedBlockingQueue<>();
+    private LinkedBlockingQueue<Thread> waiters = new LinkedBlockingQueue<>(1000);
 
     @Override
     public boolean tryLock() {
@@ -64,4 +65,5 @@ public class MyReentrantLockV2 implements Lock {
     public Condition newCondition() {
         return null;
     }
+
 }

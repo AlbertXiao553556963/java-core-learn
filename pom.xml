@@ -13,6 +13,7 @@
         <module>canal-learn</module>
         <module>wangyi-learn</module>
         <module>basic-learn</module>
+        <module>design-pattern</module>
     </modules>
 
     <dependencies>

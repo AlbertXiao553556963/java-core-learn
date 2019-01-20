@@ -1,4 +1,6 @@
-package com.xmx.thread;
+package com.xmx.juc.future;
+
+import com.xmx.juc.future.MyFutureTask;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
@@ -8,7 +10,7 @@ import java.util.concurrent.FutureTask;
  * @email: mingxuan.xmx@alibaba-inc.com
  * @create: 2018-12-08 11:52
  **/
-public class TestCallable {
+public class FutureTaskDemo {
 
     public static Long getUserId() {
         try {

@@ -1,4 +1,4 @@
-package com.xmx.thread;
+package com.xmx.juc.future;
 
 import java.util.concurrent.Callable;
 

@@ -1,16 +1,21 @@
 package topic1.lock;
 
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+
 /**
  * @author: XiaoMingxuan
  * @email: mingxuan.xmx@alibaba-inc.com
  * @create: 2019-01-05 21:57
  **/
-public class MyReentrantLock {
+public class MyReentrantLock implements Lock {
 
     private volatile boolean isLocked = false;
 
     private Thread lockBy;
 
+    @Override
     public synchronized void lock() {
         while (isLocked && Thread.currentThread() != lockBy) {
             try {
@@ -23,17 +28,31 @@ public class MyReentrantLock {
         isLocked = true;
     }
 
-    public synchronized void unLock() {
-        isLocked = false;
-        lockBy = null;
-        notify();
+    @Override
+    public void lockInterruptibly() throws InterruptedException {
+
     }
 
-    public static void main(String[] args) {
-        MyReentrantLock lock = new MyReentrantLock();
-        lock.lock();
-        System.out.println("first");
-        lock.lock();
-        System.out.println("second");
+    @Override
+    public boolean tryLock() {
+        return false;
     }
+
+    @Override
+    public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
+        return false;
+    }
+
+    @Override
+    public synchronized void unlock() {
+        isLocked = false;
+        lockBy = null;
+        notifyAll();
+    }
+
+    @Override
+    public Condition newCondition() {
+        return null;
+    }
+
 }

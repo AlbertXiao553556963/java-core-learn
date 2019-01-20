@@ -8,7 +8,7 @@ import java.util.concurrent.*;
  * @email: mingxuan.xmx@alibaba-inc.com
  * @create: 2018-12-28 22:28
  **/
-public class ThreadPool1 {
+public class ThreadPoolDemo {
 
     /**
      * 测试： 提交15个执行时间需要3秒的任务,看线程池的状况
@@ -273,13 +273,13 @@ public class ThreadPool1 {
     }
 
     public static void main(String[] args) throws Exception {
-//		new ThreadPool1().threadPoolExecutorTest1();
-//		new ThreadPool1().threadPoolExecutorTest2();
-//		new ThreadPool1().threadPoolExecutorTest3();
-//		new ThreadPool1().threadPoolExecutorTest4();
-//		new ThreadPool1().threadPoolExecutorTest5();
-//		new ThreadPool1().threadPoolExecutorTest6();
-//		new ThreadPool1().threadPoolExecutorTest7();
-        new ThreadPool1().threadPoolExecutorTest8();
+//		new ThreadPoolDemo().threadPoolExecutorTest1();
+//		new ThreadPoolDemo().threadPoolExecutorTest2();
+//		new ThreadPoolDemo().threadPoolExecutorTest3();
+//		new ThreadPoolDemo().threadPoolExecutorTest4();
+//		new ThreadPoolDemo().threadPoolExecutorTest5();
+//		new ThreadPoolDemo().threadPoolExecutorTest6();
+//		new ThreadPoolDemo().threadPoolExecutorTest7();
+        new ThreadPoolDemo().threadPoolExecutorTest8();
     }
 }
