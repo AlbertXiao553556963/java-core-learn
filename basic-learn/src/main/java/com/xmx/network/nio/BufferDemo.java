@@ -18,6 +18,8 @@ public class BufferDemo {
         // write 1 byte data
         byteBuffer.put((byte) 1);
 
+
+
         // adjust position limit , trans to read mode
         byteBuffer.flip();
 

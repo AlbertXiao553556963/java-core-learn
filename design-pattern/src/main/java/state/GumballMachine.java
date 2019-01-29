@@ -1,13 +1,17 @@
 package state;
 
+/**
+ * 糖果发放机器
+ */
 public class GumballMachine {
  
-	state.State soldOutState;
-	state.State noQuarterState;
+	State soldOutState;
+	State noQuarterState;
 	State hasQuarterState;
 	State soldState;
  
-	State state = soldOutState;
+	State currentstate = soldOutState;
+
 	int count = 0;
  
 	public GumballMachine(int numberGumballs) {
@@ -18,25 +22,21 @@ public class GumballMachine {
  
 		this.count = numberGumballs;
  		if (numberGumballs > 0) {
-			state = noQuarterState;
+			currentstate = noQuarterState;
 		} 
 	}
  
 	public void insertQuarter() {
-		state.insertQuarter();
+		currentstate.insertQuarter();
 	}
  
 	public void ejectQuarter() {
-		state.ejectQuarter();
+		currentstate.ejectQuarter();
 	}
  
 	public void turnCrank() {
-		state.turnCrank();
-		state.dispense();
-	}
- 
-	void setState(State state) {
-		this.state = state;
+		currentstate.turnCrank();
+		currentstate.dispense();
 	}
  
 	void releaseBall() {
@@ -45,34 +45,20 @@ public class GumballMachine {
 			count = count - 1;
 		}
 	}
- 
-	int getCount() {
-		return count;
-	}
- 
-	void refill(int count) {
-		this.count = count;
-		state = noQuarterState;
-	}
- 
-    public State getState() {
-        return state;
-    }
- 
-    public State getSoldOutState() {
-        return soldOutState;
-    }
- 
-    public State getNoQuarterState() {
-        return noQuarterState;
-    }
- 
-    public State getHasQuarterState() {
-        return hasQuarterState;
-    }
- 
-    public State getSoldState() {
-        return soldState;
+
+    public void changeState(StateEnum stateEnum) {
+	    State state = null;
+	    switch (stateEnum) {
+            case SOLD_OUT:
+                state = soldOutState; break;
+            case SOLD:
+                state = soldOutState; break;
+            case QUARTER:
+                state = hasQuarterState; break;
+            case QUARTER_OUT:
+                state = noQuarterState; break;
+        }
+        this.currentstate = state;
     }
  
 	public String toString() {
@@ -84,7 +70,11 @@ public class GumballMachine {
 			result.append("s");
 		}
 		result.append("\n");
-		result.append("Machine is " + state + "\n");
+		result.append("Machine is " + currentstate + "\n");
 		return result.toString();
 	}
+
+    public int getCount() {
+	    return count;
+    }
 }
