@@ -9,7 +9,7 @@ import java.util.concurrent.CountDownLatch;
  * @create: 2018-12-16 11:48
  * 使用CountDownLatch模拟并发
  **/
-public class SimulationConcurrency {
+public class SimulationConcurrencyDemo {
 
     static class Service {
         public static void method(int i) {

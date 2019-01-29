@@ -1,4 +1,4 @@
-package topic1.thread;
+package com.xmx.thread;
 
 import java.util.List;
 import java.util.concurrent.*;

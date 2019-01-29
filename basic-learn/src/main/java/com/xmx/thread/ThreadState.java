@@ -1,4 +1,4 @@
-package topic1.thread;
+package com.xmx.thread;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
