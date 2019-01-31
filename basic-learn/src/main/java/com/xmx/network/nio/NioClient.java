@@ -15,6 +15,9 @@ public class NioClient {
 
     private static String input() {
         Scanner scanner = new Scanner(System.in);
+
+
+
         System.out.println("please input:");
         String msg = scanner.nextLine();
         return msg;
