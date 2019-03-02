@@ -8,6 +8,9 @@ import java.net.URLClassLoader;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author 11092893
+ */
 public class HotSwapURLClassLoader extends URLClassLoader {
 
     //缓存加载class文件的最后最新修改时间
@@ -55,6 +58,7 @@ public class HotSwapURLClassLoader extends URLClassLoader {
             }
             //如果class类被修改过，则重新加载
             if (isModify(name)) {
+                // 这一步很关键，使用新的类加载器重新加载
                 hcl = new HotSwapURLClassLoader();
                 clazz = customLoad(name, hcl);
             }
@@ -68,8 +72,9 @@ public class HotSwapURLClassLoader extends URLClassLoader {
                 ClassLoader system = ClassLoader.getSystemClassLoader();
                 clazz = system.loadClass(name);
                 if (clazz != null) {
-                    if (resolve)
+                    if (resolve) {
                         resolveClass(clazz);
+                    }
                     return (clazz);
                 }
             } catch (ClassNotFoundException e) {
@@ -91,7 +96,7 @@ public class HotSwapURLClassLoader extends URLClassLoader {
      * @return
      * @throws ClassNotFoundException
      */
-    public Class customLoad(String name,ClassLoader cl) throws ClassNotFoundException {
+    public Class customLoad(String name, ClassLoader cl) throws ClassNotFoundException {
         return customLoad(name, false,cl);
     }
 
@@ -105,14 +110,16 @@ public class HotSwapURLClassLoader extends URLClassLoader {
     public Class customLoad(String name, boolean resolve,ClassLoader cl) throws ClassNotFoundException {
         //findClass()调用的是URLClassLoader里面重载了ClassLoader的findClass()方法
         Class clazz = ((HotSwapURLClassLoader)cl).findClass(name);
-        if (resolve)
+        if (resolve) {
             ((HotSwapURLClassLoader)cl).resolveClass(clazz);
+        }
         //缓存加载class文件的最后修改时间
         long lastModifyTime = getClassLastModifyTime(name);
         cacheLastModifyTimeMap.put(name,lastModifyTime);
         return clazz;
     }
 
+    @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException {
         return loadClass(name,false);
     }

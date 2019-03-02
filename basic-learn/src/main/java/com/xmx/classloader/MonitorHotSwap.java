@@ -1,36 +1,50 @@
 package com.xmx.classloader;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class MonitorHotSwap implements Runnable {
 
-    // Hot就是用于修改，用来测试热加载
-    private String className = "com.xmx.classloader.HelloWorld";
+    private String className;
 
     private Class hotClazz = null;
- 
+
+    private long millis;
+
+    public MonitorHotSwap(String className, long millis) {
+        this.className = className;
+        this.millis = millis;
+    }
+
     @Override
     public void run() {
         try {
             while (true) {
-                initLoad();
-                Object hot = hotClazz.newInstance();
-                System.out.println(hotClazz.getClassLoader());
-                Method m = hotClazz.getMethod("say");
-                m.invoke(hot, null); //打印出相关信息
-                // 每隔10秒重新加载一次
-                Thread.sleep(10000);
+                this.load();
+                callMethod();
+                this.reload(millis);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
- 
-    /**
-     * 加载class
-     */
-    public void initLoad() throws Exception {
-        // 如果Hot类被修改了，那么会重新加载，hotClass也会返回新的
+
+    private void callMethod() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        System.out.println(hotClazz.getClassLoader());
+        Object hot = hotClazz.newInstance();
+        Method m = hotClazz.getMethod("say");
+        //打印出相关信息
+        m.invoke(hot, null);
+    }
+
+    private void reload(long millis) throws ClassNotFoundException, InterruptedException {
+        Thread.sleep(millis);
+        load();
+    }
+
+    private void load() throws ClassNotFoundException {
         hotClazz = HotSwapURLClassLoader.getClassLoader().loadClass(className);
     }
+
+
 }
