@@ -82,6 +82,7 @@ public class HotSwapURLClassLoader extends URLClassLoader {
             }
         }
 
+        //执行自定义加载，脱离双亲委派模型
         return customLoad(name,this);
     }
 
